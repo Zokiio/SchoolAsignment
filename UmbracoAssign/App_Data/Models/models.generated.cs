@@ -19,8 +19,8 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "f7b570bb266118e0")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "eff8f415ab7d4fa3")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.8")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
@@ -50,47 +50,21 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Coutries
+		///</summary>
+		[ImplementPropertyType("coutries")]
+		public IEnumerable<IPublishedContent> Coutries
+		{
+			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("coutries"); }
+		}
+
+		///<summary>
 		/// Title: Title of the company
 		///</summary>
 		[ImplementPropertyType("title")]
 		public string Title
 		{
 			get { return this.GetPropertyValue<string>("title"); }
-		}
-	}
-
-	/// <summary>Country</summary>
-	[PublishedContentModel("country")]
-	public partial class Country : PublishedContentModel
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "country";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public Country(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Country, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Country name
-		///</summary>
-		[ImplementPropertyType("countryName")]
-		public string CountryName
-		{
-			get { return this.GetPropertyValue<string>("countryName"); }
 		}
 	}
 
@@ -135,6 +109,15 @@ namespace Umbraco.Web.PublishedContentModels
 		public string DepartmentName
 		{
 			get { return this.GetPropertyValue<string>("departmentName"); }
+		}
+
+		///<summary>
+		/// Employee
+		///</summary>
+		[ImplementPropertyType("employee")]
+		public IEnumerable<IPublishedContent> Employee
+		{
+			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("employee"); }
 		}
 
 		///<summary>
@@ -191,15 +174,6 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// EmpId
-		///</summary>
-		[ImplementPropertyType("empId")]
-		public int EmpId
-		{
-			get { return this.GetPropertyValue<int>("empId"); }
-		}
-
-		///<summary>
 		/// First Name
 		///</summary>
 		[ImplementPropertyType("firstName")]
@@ -242,6 +216,59 @@ namespace Umbraco.Web.PublishedContentModels
 		public int TelInter
 		{
 			get { return this.GetPropertyValue<int>("telInter"); }
+		}
+	}
+
+	/// <summary>Country</summary>
+	[PublishedContentModel("country")]
+	public partial class Country : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "country";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Country(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Country, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Country Code: Enter the 2 letter Country code e.g "SE" for Sweden
+		///</summary>
+		[ImplementPropertyType("countryCode")]
+		public string CountryCode
+		{
+			get { return this.GetPropertyValue<string>("countryCode"); }
+		}
+
+		///<summary>
+		/// Country Name: Enter the Country Name
+		///</summary>
+		[ImplementPropertyType("countryName")]
+		public string CountryName
+		{
+			get { return this.GetPropertyValue<string>("countryName"); }
+		}
+
+		///<summary>
+		/// Departments
+		///</summary>
+		[ImplementPropertyType("departments")]
+		public IEnumerable<IPublishedContent> Departments
+		{
+			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("departments"); }
 		}
 	}
 
