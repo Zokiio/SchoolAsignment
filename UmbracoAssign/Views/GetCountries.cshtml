@@ -9,11 +9,12 @@
 @using Newtonsoft.Json;
 @using System.Dynamic;
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
-@*  Try to get properties recursively while avoiding circular references *@
+@* Try to get properties recursively while avoiding circular references *@
+
 @functions{
     IDictionary<string, object> GetProperties(ICollection<IPublishedProperty> props)
     {
-        dynamic exObj = new System.Dynamic.ExpandoObject();
+        dynamic exObj = new System.Dynamic.ExpandoObject(); 
         var dictionary = exObj as IDictionary<string, object>;
          foreach (var prop in props)
         {
@@ -25,20 +26,19 @@
                 foreach(var umbracoNode in umbracoNodes)
                 {
                     tmpDictionaries.Add(GetProperties(umbracoNode.Properties));
+
+                    if (prop.PropertyTypeAlias == "countryName"){
+                        dictionary[prop.PropertyTypeAlias]= tmpDictionaries;
+                    }
                 }
-                dictionary[prop.PropertyTypeAlias] = tmpDictionaries;
                 continue;
             }
-            /*if(prop.Value is Newtonsoft.Json.Linq.JObject){
-                dictionary[prop.PropertyTypeAlias] = prop.Value;
-            }*/
             else if (prop.PropertyTypeAlias == "countryName") {
                 try {
                     dictionary[prop.PropertyTypeAlias] = prop.Value.ToString();
                 }
                 catch(InvalidCastException e){}
             }
-            //dictionary[prop.PropertyTypeAlias] = prop.Value.GetType();
         }      
         return dictionary;
     }
