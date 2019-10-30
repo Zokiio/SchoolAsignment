@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import { GetAll, GetCountry, GetDepartment } from '../Data/GetFunctions';
+import React, { useState, useEffect } from 'react';
+import { GetCountry } from '../Data/GetFunctions';
 
 function Home() {
   const [country, setCountry] = useState([]);
   const [employees, setEmployees] = useState([]);
 
-  console.log(country);
-
   const getDepartments = e => {
     GetCountry(e.target.value).then(e => {
-      console.log(e);
       setCountry(e);
+      e.departments.map(item => setEmployees(...employees, item.employee));
     });
   };
+
+  useEffect(() => {}, [employees]);
+
+  console.table(employees);
 
   const updateEmployees = () => {};
 
