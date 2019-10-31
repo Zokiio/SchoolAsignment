@@ -1,24 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { GetCountry } from '../Data/GetFunctions';
 
+
 function Home() {
   const [country, setCountry] = useState([]);
   const [employees, setEmployees] = useState([]);
 
+
   const getDepartments = e => {
+    console.log('I got clicked, new value is', e.target.value)
     GetCountry(e.target.value).then(e => {
+      console.log('func e is', e)
       setCountry(e);
-      e.departments.map(item => setEmployees(...employees, item.employee));
+      e.departments.map(item => setEmployees(item.employee));
     });
   };
 
-  useEffect(() => {}, [employees]);
+  useEffect(() => {
+    console.log('employees', employees)
+    console.table(employees);
+  }, [employees]);
 
-  console.table(employees);
 
-  const updateEmployees = () => {};
+  const table = () => employees.map((employee, index) => {
+    return <tr key={index}>
+      <td>{employee.firstName}</td>
+    </tr>
+  });
 
   return (
+
     <div className='App'>
       <h1>test</h1>
       {country.length !== 0 ? <p>{country.countryName}</p> : <p>Hello</p>}
@@ -29,7 +40,6 @@ function Home() {
           onChange={getDepartments}
         >
           {
-            //country.map((specificCountry) => <option key={specificCountry.label} value={specificCountry.value}>{specificCountry.label}</option>)
             <>
               <option key='' value=''>
                 Country
@@ -54,8 +64,8 @@ function Home() {
               ))}
             </>
           ) : (
-            <option value=''>Choose a Country first</option>
-          )}
+              <option value=''>Choose a Country first</option>
+            )}
         </select>
       </form>
       <br></br>
@@ -69,6 +79,17 @@ function Home() {
           Search
         </button>
       </form>
+
+      {employees.length > 0 && <table className='dataTable'>
+        <thead>
+          <tr>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody >
+          {table()}
+        </tbody>
+      </table>}
     </div>
   );
 }
