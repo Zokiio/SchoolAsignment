@@ -5,6 +5,7 @@ import { GetCountry } from '../Data/GetFunctions';
 function Home() {
   const [country, setCountry] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
 
 
   const getDepartments = e => {
@@ -18,8 +19,17 @@ function Home() {
 
   useEffect(() => {
     console.log('employees', employees)
-    console.table(employees);
   }, [employees]);
+
+  const searchForValue = (query, e) => {
+    e.preventDefault()
+    console.log(query)
+    const newArray = employees.filter(employee => employee.firstName.toLowerCase().includes(query))
+    
+
+    return setEmployees(newArray)
+  
+  }
 
 
   const table = () => employees.map((employee, index) => {
@@ -70,12 +80,14 @@ function Home() {
       </form>
       <br></br>
       <form>
-        <input
-          type='searchbar'
-          name='searchbar'
+      <input
+          type='searchInput'
+          name='searchInput'
+          value={searchValue}
           placeholder='Search employee by name or number'
+          onChange={(e) => setSearchValue(e.target.value)} 
         />
-        <button type='submit' id='btn'>
+        <button type='submit' onClick={(e)=> searchForValue(searchValue, e)} id='btn'>
           Search
         </button>
       </form>
