@@ -8,19 +8,15 @@ function Home() {
   const [searchValue, setSearchValue] = useState("");
 
 
-  const getDepartments = e => {
-    console.log(country);
-    
+  const getDepartments = e => {   
     if(e.target.value === "All") 
     {
-      let emp = GetAll().then(e =>
-        e.coutries.map((department) =>          
-          department.departments.map(employees => {
-             console.log(employees.employee)       
-             setEmployees(...employees, employees.employee.map(i => i.employee))
-          })
-        )
-      );
+      GetAll().then(e =>
+        setEmployees(e.coutries.flatMap((department) =>          
+          department.departments.flatMap(employee =>
+            employee.employee.map(i => { return i })
+       )))
+      )
     }
     else {
     GetCountry(e.target.value).then(e => {
