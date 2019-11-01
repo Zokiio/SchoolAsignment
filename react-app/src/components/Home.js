@@ -24,7 +24,7 @@ function Home() {
   const searchForValue = (query, e) => {
     e.preventDefault()
     console.log(query)
-    const newArray = employees.filter(employee => employee.firstName.toLowerCase() === query )
+    const newArray = employees.filter(employee => employee.firstName.toLowerCase().includes(query))
     
 
     return setEmployees(newArray)
