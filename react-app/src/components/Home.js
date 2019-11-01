@@ -60,6 +60,12 @@ function Home() {
               <option key='2' value='england'>
                 England
               </option>
+              <option key='3' value='norway'>
+                Norway
+              </option>
+              <option key='4' value='poland'>
+                Poland
+              </option>
             </>
           }
         </select>
