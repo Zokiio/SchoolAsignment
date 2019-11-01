@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GetCountry } from '../Data/GetFunctions';
+import { GetCountry, GetAll } from '../Data/GetFunctions';
 
 
 function Home() {
@@ -9,12 +9,27 @@ function Home() {
 
 
   const getDepartments = e => {
-    console.log('I got clicked, new value is', e.target.value)
+    console.log(country);
+    
+    if(e.target.value === "All") 
+    {
+      let emp = GetAll().then(e =>
+        e.coutries.map((department) =>          
+          department.departments.map(employees => {
+             console.log(employees.employee)       
+             setEmployees(...employees, employees.employee.map(i => i.employee))
+          })
+        )
+      );
+    }
+    else {
     GetCountry(e.target.value).then(e => {
       console.log('func e is', e)
       setCountry(e);
-      e.departments.map(item => setEmployees(item.employee));
+      e.departments.map(item => {console.log(item.employee);
+       setEmployees(item.employee)});
     });
+  }
   };
 
   useEffect(() => {
@@ -25,8 +40,6 @@ function Home() {
     e.preventDefault()
     console.log(query)
     const newArray = employees.filter(employee => employee.firstName.toLowerCase().includes(query))
-    
-
     return setEmployees(newArray)
   
   }
@@ -42,7 +55,7 @@ function Home() {
 
     <div className='App'>
       <h1>test</h1>
-      {country.length !== 0 ? <p>{country.countryName}</p> : <p>Hello</p>}
+      {country.length !== 0 ? <p>{country.countryName}</p> : <p>All</p>}
       <form>
         <select
           className='browser-default custom-select'
@@ -51,7 +64,7 @@ function Home() {
         >
           {
             <>
-              <option key='' value=''>
+              <option key='' value='All'>
                 Country
               </option>
               <option key='1' value='sweden'>

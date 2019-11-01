@@ -1,24 +1,24 @@
 const port = 1065;
 
 function GetAll() {
-  return fetch('http://localhost:1065/').then(result => result.json());
+  return fetch('http://localhost:19505/').then(result => result.json());
 }
 
 function GetCountry(country) {
-  return fetch(`http://localhost:${port}/${country}/`).then(result =>
+  return fetch(`http://localhost:19505/${country}/`).then(result =>
     result.json()
   );
 }
 
 function GetDepartment(country, department) {
-  return fetch(`http://localhost:${port}/${country}/${department}/`).then(
+  return fetch(`http://localhost:19505/${country}/${department}/`).then(
     result => result.json()
   );
 }
 
 function GetEmployee(country, department, employee) {
   return fetch(
-    `http://localhost:${port}/${country}/${department}/${employee}`
+    `http://localhost:${port}/19505/${department}/${employee}`
   ).then(result => result.json());
 }
 
