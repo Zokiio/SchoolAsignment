@@ -27,11 +27,13 @@
     }
 }
 
+@* Set empty layout and correct response header *@
 @{
     Layout = null;
     Response.ContentType = "application/json";
 }
 
+@* Output JSON *@
 @Html.Raw(JsonConvert.SerializeObject(GetProperties(Model.Content.Properties),
     Formatting.Indented,
     new JsonSerializerSettings
