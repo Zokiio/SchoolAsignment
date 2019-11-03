@@ -19,523 +19,549 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "eff8f415ab7d4fa3")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.8")]
+[assembly: ModelsBuilderAssembly(PureLive = true, SourceHash = "3e87a7dcc4cd2950")]
+[assembly: System.Reflection.AssemblyVersion("0.0.0.4")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
-	/// <summary>Company</summary>
-	[PublishedContentModel("company")]
-	public partial class Company : PublishedContentModel
-	{
+    /// <summary>Company</summary>
+    [PublishedContentModel("company")]
+    public partial class Company : PublishedContentModel
+    {
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "company";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+        public new const string ModelTypeAlias = "company";
+        public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public Company(IPublishedContent content)
-			: base(content)
-		{ }
+        public Company(IPublishedContent content)
+            : base(content)
+        { }
 
 #pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
+        public new static PublishedContentType GetModelContentType()
+        {
+            return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+        }
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Company, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
+        public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Company, TValue>> selector)
+        {
+            return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+        }
 
-		///<summary>
-		/// Coutries
-		///</summary>
-		[ImplementPropertyType("coutries")]
-		public IEnumerable<IPublishedContent> Coutries
-		{
-			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("coutries"); }
-		}
+        ///<summary>
+        /// Coutries
+        ///</summary>
+        [ImplementPropertyType("coutries")]
+        public IEnumerable<IPublishedContent> Coutries
+        {
+            get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("coutries"); }
+        }
 
-		///<summary>
-		/// Title: Title of the company
-		///</summary>
-		[ImplementPropertyType("title")]
-		public string Title
-		{
-			get { return this.GetPropertyValue<string>("title"); }
-		}
-	}
+        ///<summary>
+        /// Title: Title of the company
+        ///</summary>
+        [ImplementPropertyType("title")]
+        public string Title
+        {
+            get { return this.GetPropertyValue<string>("title"); }
+        }
+    }
 
-	/// <summary>Department</summary>
-	[PublishedContentModel("department")]
-	public partial class Department : PublishedContentModel
-	{
+    /// <summary>Department</summary>
+    [PublishedContentModel("department")]
+    public partial class Department : PublishedContentModel
+    {
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "department";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+        public new const string ModelTypeAlias = "department";
+        public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public Department(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Department, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// City: Name of the city
-		///</summary>
-		[ImplementPropertyType("city")]
-		public string City
-		{
-			get { return this.GetPropertyValue<string>("city"); }
-		}
-
-		///<summary>
-		/// Department Name: Name of the department
-		///</summary>
-		[ImplementPropertyType("departmentName")]
-		public string DepartmentName
-		{
-			get { return this.GetPropertyValue<string>("departmentName"); }
-		}
-
-		///<summary>
-		/// Employee
-		///</summary>
-		[ImplementPropertyType("employee")]
-		public IEnumerable<IPublishedContent> Employee
-		{
-			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("employee"); }
-		}
-
-		///<summary>
-		/// Street address: Address
-		///</summary>
-		[ImplementPropertyType("streetAddress")]
-		public string StreetAddress
-		{
-			get { return this.GetPropertyValue<string>("streetAddress"); }
-		}
-
-		///<summary>
-		/// Zip code
-		///</summary>
-		[ImplementPropertyType("zipCode")]
-		public string ZipCode
-		{
-			get { return this.GetPropertyValue<string>("zipCode"); }
-		}
-	}
-
-	/// <summary>Employee</summary>
-	[PublishedContentModel("employee")]
-	public partial class Employee : PublishedContentModel
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "employee";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public Employee(IPublishedContent content)
-			: base(content)
-		{ }
+        public Department(IPublishedContent content)
+            : base(content)
+        { }
 
 #pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
+        public new static PublishedContentType GetModelContentType()
+        {
+            return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+        }
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Employee, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
+        public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Department, TValue>> selector)
+        {
+            return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+        }
 
-		///<summary>
-		/// Department
-		///</summary>
-		[ImplementPropertyType("department")]
-		public string Department
-		{
-			get { return this.GetPropertyValue<string>("department"); }
-		}
+        ///<summary>
+        /// City: Name of the city
+        ///</summary>
+        [ImplementPropertyType("city")]
+        public string City
+        {
+            get { return this.GetPropertyValue<string>("city"); }
+        }
 
-		///<summary>
-		/// First Name
-		///</summary>
-		[ImplementPropertyType("firstName")]
-		public string FirstName
-		{
-			get { return this.GetPropertyValue<string>("firstName"); }
-		}
+        ///<summary>
+        /// Department Name: Name of the department
+        ///</summary>
+        [ImplementPropertyType("departmentName")]
+        public string DepartmentName
+        {
+            get { return this.GetPropertyValue<string>("departmentName"); }
+        }
 
-		///<summary>
-		/// Last Name
-		///</summary>
-		[ImplementPropertyType("lastName")]
-		public string LastName
-		{
-			get { return this.GetPropertyValue<string>("lastName"); }
-		}
+        ///<summary>
+        /// Employee
+        ///</summary>
+        [ImplementPropertyType("employee")]
+        public IEnumerable<IPublishedContent> Employee
+        {
+            get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("employee"); }
+        }
 
-		///<summary>
-		/// Mail
-		///</summary>
-		[ImplementPropertyType("mail")]
-		public string Mail
-		{
-			get { return this.GetPropertyValue<string>("mail"); }
-		}
+        ///<summary>
+        /// Street address: Address
+        ///</summary>
+        [ImplementPropertyType("streetAddress")]
+        public string StreetAddress
+        {
+            get { return this.GetPropertyValue<string>("streetAddress"); }
+        }
 
-		///<summary>
-		/// Tel
-		///</summary>
-		[ImplementPropertyType("tel")]
-		public int Tel
-		{
-			get { return this.GetPropertyValue<int>("tel"); }
-		}
+        ///<summary>
+        /// Zip code
+        ///</summary>
+        [ImplementPropertyType("zipCode")]
+        public string ZipCode
+        {
+            get { return this.GetPropertyValue<string>("zipCode"); }
+        }
+    }
 
-		///<summary>
-		/// Tel Inter
-		///</summary>
-		[ImplementPropertyType("telInter")]
-		public int TelInter
-		{
-			get { return this.GetPropertyValue<int>("telInter"); }
-		}
-	}
-
-	/// <summary>Country</summary>
-	[PublishedContentModel("country")]
-	public partial class Country : PublishedContentModel
-	{
+    /// <summary>Employee</summary>
+    [PublishedContentModel("employee")]
+    public partial class Employee : PublishedContentModel
+    {
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "country";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+        public new const string ModelTypeAlias = "employee";
+        public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public Country(IPublishedContent content)
-			: base(content)
-		{ }
+        public Employee(IPublishedContent content)
+            : base(content)
+        { }
 
 #pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
+        public new static PublishedContentType GetModelContentType()
+        {
+            return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+        }
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Country, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
+        public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Employee, TValue>> selector)
+        {
+            return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+        }
 
-		///<summary>
-		/// Country Code: Enter the 2 letter Country code e.g "SE" for Sweden
-		///</summary>
-		[ImplementPropertyType("countryCode")]
-		public string CountryCode
-		{
-			get { return this.GetPropertyValue<string>("countryCode"); }
-		}
+        ///<summary>
+        /// Department
+        ///</summary>
+        [ImplementPropertyType("department")]
+        public string Department
+        {
+            get { return this.GetPropertyValue<string>("department"); }
+        }
 
-		///<summary>
-		/// Country Name: Enter the Country Name
-		///</summary>
-		[ImplementPropertyType("countryName")]
-		public string CountryName
-		{
-			get { return this.GetPropertyValue<string>("countryName"); }
-		}
+        ///<summary>
+        /// First Name
+        ///</summary>
+        [ImplementPropertyType("firstName")]
+        public string FirstName
+        {
+            get { return this.GetPropertyValue<string>("firstName"); }
+        }
 
-		///<summary>
-		/// Departments
-		///</summary>
-		[ImplementPropertyType("departments")]
-		public IEnumerable<IPublishedContent> Departments
-		{
-			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("departments"); }
-		}
-	}
+        ///<summary>
+        /// Last Name
+        ///</summary>
+        [ImplementPropertyType("lastName")]
+        public string LastName
+        {
+            get { return this.GetPropertyValue<string>("lastName"); }
+        }
 
-	/// <summary>Folder</summary>
-	[PublishedContentModel("Folder")]
-	public partial class Folder : PublishedContentModel
-	{
+        ///<summary>
+        /// Mail
+        ///</summary>
+        [ImplementPropertyType("mail")]
+        public string Mail
+        {
+            get { return this.GetPropertyValue<string>("mail"); }
+        }
+
+        ///<summary>
+        /// Tel
+        ///</summary>
+        [ImplementPropertyType("tel")]
+        public int Tel
+        {
+            get { return this.GetPropertyValue<int>("tel"); }
+        }
+
+        ///<summary>
+        /// Tel Inter
+        ///</summary>
+        [ImplementPropertyType("telInter")]
+        public int TelInter
+        {
+            get { return this.GetPropertyValue<int>("telInter"); }
+        }
+    }
+
+    /// <summary>Country</summary>
+    [PublishedContentModel("country")]
+    public partial class Country : PublishedContentModel
+    {
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "Folder";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Media;
+        public new const string ModelTypeAlias = "country";
+        public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public Folder(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Folder, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Contents:
-		///</summary>
-		[ImplementPropertyType("contents")]
-		public object Contents
-		{
-			get { return this.GetPropertyValue("contents"); }
-		}
-	}
-
-	/// <summary>Image</summary>
-	[PublishedContentModel("Image")]
-	public partial class Image : PublishedContentModel
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "Image";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Media;
-#pragma warning restore 0109
-
-		public Image(IPublishedContent content)
-			: base(content)
-		{ }
+        public Country(IPublishedContent content)
+            : base(content)
+        { }
 
 #pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
+        public new static PublishedContentType GetModelContentType()
+        {
+            return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+        }
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Image, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
+        public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Country, TValue>> selector)
+        {
+            return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+        }
 
-		///<summary>
-		/// Size
-		///</summary>
-		[ImplementPropertyType("umbracoBytes")]
-		public string UmbracoBytes
-		{
-			get { return this.GetPropertyValue<string>("umbracoBytes"); }
-		}
+        ///<summary>
+        /// Country Name: Enter the Country Name
+        ///</summary>
+        [ImplementPropertyType("countryName")]
+        public string CountryName
+        {
+            get { return this.GetPropertyValue<string>("countryName"); }
+        }
 
-		///<summary>
-		/// Type
-		///</summary>
-		[ImplementPropertyType("umbracoExtension")]
-		public string UmbracoExtension
-		{
-			get { return this.GetPropertyValue<string>("umbracoExtension"); }
-		}
+        ///<summary>
+        /// Departments
+        ///</summary>
+        [ImplementPropertyType("departments")]
+        public IEnumerable<IPublishedContent> Departments
+        {
+            get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("departments"); }
+        }
+    }
 
-		///<summary>
-		/// Upload image
-		///</summary>
-		[ImplementPropertyType("umbracoFile")]
-		public Umbraco.Web.Models.ImageCropDataSet UmbracoFile
-		{
-			get { return this.GetPropertyValue<Umbraco.Web.Models.ImageCropDataSet>("umbracoFile"); }
-		}
-
-		///<summary>
-		/// Height
-		///</summary>
-		[ImplementPropertyType("umbracoHeight")]
-		public string UmbracoHeight
-		{
-			get { return this.GetPropertyValue<string>("umbracoHeight"); }
-		}
-
-		///<summary>
-		/// Width
-		///</summary>
-		[ImplementPropertyType("umbracoWidth")]
-		public string UmbracoWidth
-		{
-			get { return this.GetPropertyValue<string>("umbracoWidth"); }
-		}
-	}
-
-	/// <summary>File</summary>
-	[PublishedContentModel("File")]
-	public partial class File : PublishedContentModel
-	{
+    /// <summary>Countries</summary>
+    [PublishedContentModel("countries")]
+    public partial class Countries : PublishedContentModel
+    {
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "File";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Media;
+        public new const string ModelTypeAlias = "countries";
+        public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public File(IPublishedContent content)
-			: base(content)
-		{ }
+        public Countries(IPublishedContent content)
+            : base(content)
+        { }
 
 #pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
+        public new static PublishedContentType GetModelContentType()
+        {
+            return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+        }
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<File, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
+        public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Countries, TValue>> selector)
+        {
+            return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+        }
 
-		///<summary>
-		/// Size
-		///</summary>
-		[ImplementPropertyType("umbracoBytes")]
-		public string UmbracoBytes
-		{
-			get { return this.GetPropertyValue<string>("umbracoBytes"); }
-		}
+        ///<summary>
+        /// Country name: Name of the country
+        ///</summary>
+        [ImplementPropertyType("countryName")]
+        public IEnumerable<IPublishedContent> CountryName
+        {
+            get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("countryName"); }
+        }
+    }
 
-		///<summary>
-		/// Type
-		///</summary>
-		[ImplementPropertyType("umbracoExtension")]
-		public string UmbracoExtension
-		{
-			get { return this.GetPropertyValue<string>("umbracoExtension"); }
-		}
-
-		///<summary>
-		/// Upload file
-		///</summary>
-		[ImplementPropertyType("umbracoFile")]
-		public string UmbracoFile
-		{
-			get { return this.GetPropertyValue<string>("umbracoFile"); }
-		}
-	}
-
-	/// <summary>Member</summary>
-	[PublishedContentModel("Member")]
-	public partial class Member : PublishedContentModel
-	{
+    /// <summary>Folder</summary>
+    [PublishedContentModel("Folder")]
+    public partial class Folder : PublishedContentModel
+    {
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "Member";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Member;
+        public new const string ModelTypeAlias = "Folder";
+        public new const PublishedItemType ModelItemType = PublishedItemType.Media;
 #pragma warning restore 0109
 
-		public Member(IPublishedContent content)
-			: base(content)
-		{ }
+        public Folder(IPublishedContent content)
+            : base(content)
+        { }
 
 #pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
+        public new static PublishedContentType GetModelContentType()
+        {
+            return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+        }
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Member, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
+        public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Folder, TValue>> selector)
+        {
+            return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+        }
 
-		///<summary>
-		/// Is Approved
-		///</summary>
-		[ImplementPropertyType("umbracoMemberApproved")]
-		public bool UmbracoMemberApproved
-		{
-			get { return this.GetPropertyValue<bool>("umbracoMemberApproved"); }
-		}
+        ///<summary>
+        /// Contents:
+        ///</summary>
+        [ImplementPropertyType("contents")]
+        public object Contents
+        {
+            get { return this.GetPropertyValue("contents"); }
+        }
+    }
 
-		///<summary>
-		/// Comments
-		///</summary>
-		[ImplementPropertyType("umbracoMemberComments")]
-		public string UmbracoMemberComments
-		{
-			get { return this.GetPropertyValue<string>("umbracoMemberComments"); }
-		}
+    /// <summary>Image</summary>
+    [PublishedContentModel("Image")]
+    public partial class Image : PublishedContentModel
+    {
+#pragma warning disable 0109 // new is redundant
+        public new const string ModelTypeAlias = "Image";
+        public new const PublishedItemType ModelItemType = PublishedItemType.Media;
+#pragma warning restore 0109
 
-		///<summary>
-		/// Failed Password Attempts
-		///</summary>
-		[ImplementPropertyType("umbracoMemberFailedPasswordAttempts")]
-		public string UmbracoMemberFailedPasswordAttempts
-		{
-			get { return this.GetPropertyValue<string>("umbracoMemberFailedPasswordAttempts"); }
-		}
+        public Image(IPublishedContent content)
+            : base(content)
+        { }
 
-		///<summary>
-		/// Last Lockout Date
-		///</summary>
-		[ImplementPropertyType("umbracoMemberLastLockoutDate")]
-		public string UmbracoMemberLastLockoutDate
-		{
-			get { return this.GetPropertyValue<string>("umbracoMemberLastLockoutDate"); }
-		}
+#pragma warning disable 0109 // new is redundant
+        public new static PublishedContentType GetModelContentType()
+        {
+            return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+        }
+#pragma warning restore 0109
 
-		///<summary>
-		/// Last Login Date
-		///</summary>
-		[ImplementPropertyType("umbracoMemberLastLogin")]
-		public string UmbracoMemberLastLogin
-		{
-			get { return this.GetPropertyValue<string>("umbracoMemberLastLogin"); }
-		}
+        public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Image, TValue>> selector)
+        {
+            return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+        }
 
-		///<summary>
-		/// Last Password Change Date
-		///</summary>
-		[ImplementPropertyType("umbracoMemberLastPasswordChangeDate")]
-		public string UmbracoMemberLastPasswordChangeDate
-		{
-			get { return this.GetPropertyValue<string>("umbracoMemberLastPasswordChangeDate"); }
-		}
+        ///<summary>
+        /// Size
+        ///</summary>
+        [ImplementPropertyType("umbracoBytes")]
+        public string UmbracoBytes
+        {
+            get { return this.GetPropertyValue<string>("umbracoBytes"); }
+        }
 
-		///<summary>
-		/// Is Locked Out
-		///</summary>
-		[ImplementPropertyType("umbracoMemberLockedOut")]
-		public bool UmbracoMemberLockedOut
-		{
-			get { return this.GetPropertyValue<bool>("umbracoMemberLockedOut"); }
-		}
+        ///<summary>
+        /// Type
+        ///</summary>
+        [ImplementPropertyType("umbracoExtension")]
+        public string UmbracoExtension
+        {
+            get { return this.GetPropertyValue<string>("umbracoExtension"); }
+        }
 
-		///<summary>
-		/// Password Answer
-		///</summary>
-		[ImplementPropertyType("umbracoMemberPasswordRetrievalAnswer")]
-		public string UmbracoMemberPasswordRetrievalAnswer
-		{
-			get { return this.GetPropertyValue<string>("umbracoMemberPasswordRetrievalAnswer"); }
-		}
+        ///<summary>
+        /// Upload image
+        ///</summary>
+        [ImplementPropertyType("umbracoFile")]
+        public Umbraco.Web.Models.ImageCropDataSet UmbracoFile
+        {
+            get { return this.GetPropertyValue<Umbraco.Web.Models.ImageCropDataSet>("umbracoFile"); }
+        }
 
-		///<summary>
-		/// Password Question
-		///</summary>
-		[ImplementPropertyType("umbracoMemberPasswordRetrievalQuestion")]
-		public string UmbracoMemberPasswordRetrievalQuestion
-		{
-			get { return this.GetPropertyValue<string>("umbracoMemberPasswordRetrievalQuestion"); }
-		}
-	}
+        ///<summary>
+        /// Height
+        ///</summary>
+        [ImplementPropertyType("umbracoHeight")]
+        public string UmbracoHeight
+        {
+            get { return this.GetPropertyValue<string>("umbracoHeight"); }
+        }
+
+        ///<summary>
+        /// Width
+        ///</summary>
+        [ImplementPropertyType("umbracoWidth")]
+        public string UmbracoWidth
+        {
+            get { return this.GetPropertyValue<string>("umbracoWidth"); }
+        }
+    }
+
+    /// <summary>File</summary>
+    [PublishedContentModel("File")]
+    public partial class File : PublishedContentModel
+    {
+#pragma warning disable 0109 // new is redundant
+        public new const string ModelTypeAlias = "File";
+        public new const PublishedItemType ModelItemType = PublishedItemType.Media;
+#pragma warning restore 0109
+
+        public File(IPublishedContent content)
+            : base(content)
+        { }
+
+#pragma warning disable 0109 // new is redundant
+        public new static PublishedContentType GetModelContentType()
+        {
+            return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+        }
+#pragma warning restore 0109
+
+        public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<File, TValue>> selector)
+        {
+            return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+        }
+
+        ///<summary>
+        /// Size
+        ///</summary>
+        [ImplementPropertyType("umbracoBytes")]
+        public string UmbracoBytes
+        {
+            get { return this.GetPropertyValue<string>("umbracoBytes"); }
+        }
+
+        ///<summary>
+        /// Type
+        ///</summary>
+        [ImplementPropertyType("umbracoExtension")]
+        public string UmbracoExtension
+        {
+            get { return this.GetPropertyValue<string>("umbracoExtension"); }
+        }
+
+        ///<summary>
+        /// Upload file
+        ///</summary>
+        [ImplementPropertyType("umbracoFile")]
+        public string UmbracoFile
+        {
+            get { return this.GetPropertyValue<string>("umbracoFile"); }
+        }
+    }
+
+    /// <summary>Member</summary>
+    [PublishedContentModel("Member")]
+    public partial class Member : PublishedContentModel
+    {
+#pragma warning disable 0109 // new is redundant
+        public new const string ModelTypeAlias = "Member";
+        public new const PublishedItemType ModelItemType = PublishedItemType.Member;
+#pragma warning restore 0109
+
+        public Member(IPublishedContent content)
+            : base(content)
+        { }
+
+#pragma warning disable 0109 // new is redundant
+        public new static PublishedContentType GetModelContentType()
+        {
+            return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+        }
+#pragma warning restore 0109
+
+        public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Member, TValue>> selector)
+        {
+            return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+        }
+
+        ///<summary>
+        /// Is Approved
+        ///</summary>
+        [ImplementPropertyType("umbracoMemberApproved")]
+        public bool UmbracoMemberApproved
+        {
+            get { return this.GetPropertyValue<bool>("umbracoMemberApproved"); }
+        }
+
+        ///<summary>
+        /// Comments
+        ///</summary>
+        [ImplementPropertyType("umbracoMemberComments")]
+        public string UmbracoMemberComments
+        {
+            get { return this.GetPropertyValue<string>("umbracoMemberComments"); }
+        }
+
+        ///<summary>
+        /// Failed Password Attempts
+        ///</summary>
+        [ImplementPropertyType("umbracoMemberFailedPasswordAttempts")]
+        public string UmbracoMemberFailedPasswordAttempts
+        {
+            get { return this.GetPropertyValue<string>("umbracoMemberFailedPasswordAttempts"); }
+        }
+
+        ///<summary>
+        /// Last Lockout Date
+        ///</summary>
+        [ImplementPropertyType("umbracoMemberLastLockoutDate")]
+        public string UmbracoMemberLastLockoutDate
+        {
+            get { return this.GetPropertyValue<string>("umbracoMemberLastLockoutDate"); }
+        }
+
+        ///<summary>
+        /// Last Login Date
+        ///</summary>
+        [ImplementPropertyType("umbracoMemberLastLogin")]
+        public string UmbracoMemberLastLogin
+        {
+            get { return this.GetPropertyValue<string>("umbracoMemberLastLogin"); }
+        }
+
+        ///<summary>
+        /// Last Password Change Date
+        ///</summary>
+        [ImplementPropertyType("umbracoMemberLastPasswordChangeDate")]
+        public string UmbracoMemberLastPasswordChangeDate
+        {
+            get { return this.GetPropertyValue<string>("umbracoMemberLastPasswordChangeDate"); }
+        }
+
+        ///<summary>
+        /// Is Locked Out
+        ///</summary>
+        [ImplementPropertyType("umbracoMemberLockedOut")]
+        public bool UmbracoMemberLockedOut
+        {
+            get { return this.GetPropertyValue<bool>("umbracoMemberLockedOut"); }
+        }
+
+        ///<summary>
+        /// Password Answer
+        ///</summary>
+        [ImplementPropertyType("umbracoMemberPasswordRetrievalAnswer")]
+        public string UmbracoMemberPasswordRetrievalAnswer
+        {
+            get { return this.GetPropertyValue<string>("umbracoMemberPasswordRetrievalAnswer"); }
+        }
+
+        ///<summary>
+        /// Password Question
+        ///</summary>
+        [ImplementPropertyType("umbracoMemberPasswordRetrievalQuestion")]
+        public string UmbracoMemberPasswordRetrievalQuestion
+        {
+            get { return this.GetPropertyValue<string>("umbracoMemberPasswordRetrievalQuestion"); }
+        }
+    }
 
 }
