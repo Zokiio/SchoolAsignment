@@ -1,16 +1,7 @@
-﻿@*     
-    Add this template to your Umbraco 7 site and content can be viewed as JSON
-    using:
-    /content-path/?alttemplate=AsJson
-    From: https://gist.github.com/EdCharbeneau/702a4c2d702d30f371bd
-    Modified by Ironboy
-*@
-
 @using Newtonsoft.Json;
 @using System.Dynamic;
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 
-@*  Try to get properties recursively while avoiding circular references *@
 @functions{
     dynamic GetProperties(ICollection<IPublishedProperty> props)
     {
@@ -36,13 +27,11 @@
     }
 }
 
-@* Set empty layout and correct response header *@
 @{
     Layout = null;
     Response.ContentType = "application/json";
 }
 
-@* Output JSON *@
 @Html.Raw(JsonConvert.SerializeObject(GetProperties(Model.Content.Properties),
     Formatting.Indented,
     new JsonSerializerSettings
