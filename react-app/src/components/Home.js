@@ -1,54 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import { GetCountry, GetAll } from '../Data/GetFunctions';
 
-
 function Home() {
   const [country, setCountry] = useState([]);
   const [employees, setEmployees] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
 
-
-  const getDepartments = e => {   
-    if(e.target.value === "All") 
-    {
+  const getDepartments = e => {
+    if (e.target.value === 'All') {
       GetAll().then(e =>
-        setEmployees(e.coutries.flatMap((department) =>          
-          department.departments.flatMap(employee =>
-            employee.employee.map(i => { return i })
-       )))
-      )
+        setEmployees(
+          e.coutries.flatMap(department =>
+            department.departments.flatMap(employee =>
+              employee.employee.map(i => {
+                return i;
+              })
+            )
+          )
+        )
+      );
+    } else {
+      GetCountry(e.target.value).then(e => {
+        console.log('func e is', e);
+        setCountry(e);
+        e.departments.map(item => {
+          console.log(item.employee);
+          setEmployees(item.employee);
+        });
+      });
     }
-    else {
-    GetCountry(e.target.value).then(e => {
-      console.log('func e is', e)
-      setCountry(e);
-      e.departments.map(item => {console.log(item.employee);
-       setEmployees(item.employee)});
-    });
-  }
   };
 
   useEffect(() => {
-    console.log('employees', employees)
+    console.log('employees', employees);
   }, [employees]);
 
   const searchForValue = (query, e) => {
-    e.preventDefault()
-    console.log(query)
-    const newArray = employees.filter(employee => employee.firstName.toLowerCase().includes(query))
-    return setEmployees(newArray)
-  
-  }
+    e.preventDefault();
+    console.log(query);
+    const newArray = employees.filter(employee =>
+      employee.firstName.toLowerCase().includes(query)
+    );
+    return setEmployees(newArray);
+  };
 
-
-  const table = () => employees.map((employee, index) => {
-    return <tr key={index}>
-      <td>{employee.firstName}</td>
-    </tr>
-  });
+  const table = () =>
+    employees.map((employee, index) => {
+      return (
+        <tr key={index}>
+          <td>{employee.firstName}</td>
+        </tr>
+      );
+    });
 
   return (
-
     <div className='App'>
       <h1>test</h1>
       {country.length !== 0 ? <p>{country.countryName}</p> : <p>All</p>}
@@ -60,8 +65,11 @@ function Home() {
         >
           {
             <>
-              <option key='' value='All'>
+              <option key='01' value='All'>
                 Country
+              </option>
+              <option key='02' value='All'>
+                All
               </option>
               <option key='1' value='sweden'>
                 Sweden
@@ -89,34 +97,38 @@ function Home() {
               ))}
             </>
           ) : (
-              <option value=''>Choose a Country first</option>
-            )}
+            <option value=''>Choose a Country first</option>
+          )}
         </select>
       </form>
       <br></br>
       <form>
-      <input
+        <input
           type='searchInput'
           name='searchInput'
           value={searchValue}
           placeholder='Search employee by name or number'
-          onChange={(e) => setSearchValue(e.target.value)} 
+          onChange={e => setSearchValue(e.target.value)}
         />
-        <button type='submit' onClick={(e)=> searchForValue(searchValue, e)} id='btn'>
+        <button
+          type='submit'
+          onClick={e => searchForValue(searchValue, e)}
+          id='btn'
+        >
           Search
         </button>
       </form>
 
-      {employees.length > 0 && <table className='dataTable'>
-        <thead>
-          <tr>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody >
-          {table()}
-        </tbody>
-      </table>}
+      {employees.length > 0 && (
+        <table className='dataTable'>
+          <thead>
+            <tr>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>{table()}</tbody>
+        </table>
+      )}
     </div>
   );
 }
