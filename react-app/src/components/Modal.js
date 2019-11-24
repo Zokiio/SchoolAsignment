@@ -1,27 +1,28 @@
 import React from "react";
+import { GetEmployee } from "../Data/GetFunctions";
 
 function Modal(props) {
   const { show, closeModal } = props;
+
+  GetEmployee(e.target.value).then(e => {
+    console.log("func e is", e);
+  });
+
   return (
     <>
-      <div className={show ? "modal" : "hide"}>        <button onClick={closeModal}>X</button>
-        <h1>Modal heading</h1>
-        <p>This is modal content</p>
+      <div className={show ? "modal" : "hide"}>
+        {" "}
+        <button onClick={closeModal}>X</button>
+        <h1>Employee Details: </h1>
+        <p>{employee.firstName}</p>
+        <p>{employee.lastName}</p>
+        <p>{employee.department}</p>
+        <p>{employee.tel}</p>
+        <p>{employee.telInter}</p>
+        <p>{employee.mail}</p>
       </div>
     </>
   );
 }
 
 export default Modal;
-
-//ska in i home
-
-//   {!show && <button onClick={openModal}>Show modal</button>}
-// <Modal closeModal={closeModal} show={show} />
-
-  // const [show, setShow] = useState(false);
-
-  // const openModal = () => setShow(true);
-  // const closeModal = () => setShow(false);
-
-  // import Modal from './Modal.js';
