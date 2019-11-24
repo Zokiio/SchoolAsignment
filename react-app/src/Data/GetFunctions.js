@@ -4,6 +4,10 @@ function GetAll() {
   return fetch(`http://localhost:${port}`).then(result => result.json());
 }
 
+function GetCountryList() {
+  return fetch(`http://localhost:${port}/countries`).then(result => result.json());
+}
+
 function GetCountry(country) {
   return fetch(`http://localhost:${port}/${country}/`).then(result =>
     result.json()
@@ -22,4 +26,4 @@ function GetEmployee(country, department, employee) {
   );
 }
 
-export { GetAll, GetCountry, GetDepartment, GetEmployee };
+export { GetAll, GetCountry, GetDepartment, GetEmployee, GetCountryList };

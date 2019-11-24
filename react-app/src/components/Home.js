@@ -1,57 +1,86 @@
 import React, { useState, useEffect } from 'react';
-import { GetCountry, GetAll } from '../Data/GetFunctions';
+import { GetCountryList, GetCountry, GetAll } from '../Data/GetFunctions';
 
 function Home() {
   const [country, setCountry] = useState([]);
+  const [countryList, setCountryList] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [selectedEmplyees, setSelectedEmployees] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
   const getDepartments = e => {
     if (e.target.value === 'All') {
-      GetAll().then(e =>
-        setEmployees(
-          e.coutries.flatMap(department =>
-            department.departments.flatMap(employee =>
-              employee.employee.map(i => {
-                return i;
+      GetAll().then(e => {
+        let arr = e.coutries
+          .flatMap(department => department.departments
+            .flatMap(item => {
+              let office = item.departmentName
+              let emp = item.employee.map(emp => {
+                return { ...emp, office, fullName: `${emp.firstName} ${emp.lastName}` }
               })
-            )
-          )
-        )
-      );
+              return emp;
+            }));
+        setCountry({ ...country, countryName: 'All offices', departments: [] })
+        setSelectedEmployees(arr)
+        setEmployees(arr)
+        return
+      })
     } else {
       GetCountry(e.target.value).then(e => {
-        console.log('func e is', e);
         setCountry(e);
-        e.departments.map(item => {
-          console.log(item.employee);
-          setEmployees(item.employee);
+
+        let flat = e.departments.flatMap(item => {
+          let office = item.departmentName
+          let emp = item.employee.map(emp => {
+            return { ...emp, office, fullName: `${emp.firstName} ${emp.lastName}` }
+          });
+          return emp
         });
+        setEmployees(flat)
+        setSelectedEmployees(flat)
       });
     }
   };
 
+  const officeChange = (e) => {
+    if (e.target.value === '') {
+      setSelectedEmployees(employees)
+    } else {
+      let filtered = employees.filter(item => item.office === e.target.value)
+      setSelectedEmployees(filtered)
+    }
+  }
+
   useEffect(() => {
-    console.log('employees', employees);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (countryList.length === 0) {
+      GetCountryList().then(json => json.countryName.map(item => item.countryName))
+        .then(second => {
+          return setCountryList(second)
+        })
+    }
   }, [employees]);
 
   const searchForValue = (query, e) => {
     e.preventDefault();
-    console.log(query);
-    const newArray = employees.filter(employee =>
-      employee.firstName.toLowerCase().includes(query)
-    );
-    return setEmployees(newArray);
+
+    if (query !== '') {
+      const newArray = employees.filter(employee =>
+        employee.fullName.toLowerCase().includes(query)
+      );
+      return setSelectedEmployees(newArray);
+    } else {
+      setSelectedEmployees(employees)
+    }
   };
 
-  const table = () =>
-    employees.map((employee, index) => {
-      return (
-        <tr key={index}>
-          <td>{employee.firstName}</td>
-        </tr>
-      );
-    });
+  const table = selectedEmplyees.map((employee, index) => {
+    return (<tr key={index}>
+      <td>{employee.office}</td>
+      <td>{employee.fullName}</td>
+      <td>{employee.department}</td>
+    </tr>)
+  });
 
   return (
     <div className='App'>
@@ -71,25 +100,20 @@ function Home() {
               <option key='02' value='All'>
                 All
               </option>
-              <option key='1' value='sweden'>
-                Sweden
-              </option>
-              <option key='2' value='england'>
-                England
-              </option>
-              <option key='3' value='norway'>
-                Norway
-              </option>
-              <option key='4' value='poland'>
-                Poland
-              </option>
+              {
+                countryList !== 0 && countryList.map(function (item, index) {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>)
+                })}
             </>
           }
         </select>
-        <select className='browser-default custom-select' name='department'>
+        <select className='browser-default custom-select' name='department' onChange={officeChange}>
           {country.length !== 0 ? (
             <>
-              <option value=''>Choose a city</option>
+              <option value=''>Choose a office</option>
               {country.departments.map((department, index) => (
                 <option key={index} value={department.departmentName}>
                   {department.departmentName}
@@ -97,8 +121,8 @@ function Home() {
               ))}
             </>
           ) : (
-            <option value=''>Choose a Country first</option>
-          )}
+              <option value=''>Choose a Country first</option>
+            )}
         </select>
       </form>
       <br></br>
@@ -123,10 +147,12 @@ function Home() {
         <table className='dataTable'>
           <thead>
             <tr>
+              <th>Office</th>
               <th>Name</th>
+              <th>Department</th>
             </tr>
           </thead>
-          <tbody>{table()}</tbody>
+          <tbody>{table}</tbody>
         </table>
       )}
     </div>
