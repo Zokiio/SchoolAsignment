@@ -20,7 +20,7 @@ function Home() {
               })
               return emp;
             }));
-
+        setCountry({ ...country, countryName: 'All offices', departments: [] })
         setSelectedEmployees(arr)
         setEmployees(arr)
         return
@@ -28,6 +28,7 @@ function Home() {
     } else {
       GetCountry(e.target.value).then(e => {
         setCountry(e);
+
         let flat = e.departments.flatMap(item => {
           let office = item.departmentName
           let emp = item.employee.map(emp => {
@@ -63,7 +64,7 @@ function Home() {
   const searchForValue = (query, e) => {
     e.preventDefault();
 
-    if (query != '') {
+    if (query !== '') {
       const newArray = employees.filter(employee =>
         employee.fullName.toLowerCase().includes(query)
       );
@@ -71,7 +72,6 @@ function Home() {
     } else {
       setSelectedEmployees(employees)
     }
-
   };
 
   const table = selectedEmplyees.map((employee, index) => {
@@ -101,13 +101,12 @@ function Home() {
                 All
               </option>
               {
-                countryList !== 0 ? countryList.map(function (item, index) {
+                countryList !== 0 && countryList.map(function (item, index) {
                   return (
                     <option key={index} value={item}>
                       {item}
                     </option>)
-                }) : <option>loading...</option>
-              }
+                })}
             </>
           }
         </select>
