@@ -24,15 +24,23 @@ function Home() {
       GetCountry(e.target.value).then(e => {
         console.log('func e is', e);
         setCountry(e);
-        e.departments.flatMap(item => {
-          return setEmployees(item.employee);
+        let flat = e.departments.flatMap(item => {
+          let office = item.departmentName
+          let emp = item.employee.map(emp => {
+            return { ...emp, office }
+          });
+          return emp
         });
+        console.log(flat);
+
+        setEmployees(flat)
       });
     }
   };
 
   useEffect(() => {
-    console.log('employees', employees);
+    console.log(employees)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     if (countryList.length === 0) {
       GetCountryList().then(json => json.countryName.map(item => item.countryName))
         .then(second => {
@@ -52,14 +60,15 @@ function Home() {
 
   const table = () =>
     employees.map((employee, index) => {
+      //console.log(employees)
       return (
         <tr key={index}>
-          <td>{employee.firstName}</td>
+          <td>{employee.office}</td>
+          <td>{employee.firstName + ' ' + employee.lastName}</td>
+          <td>{employee.department}</td>
         </tr>
       );
     });
-
-  console.log(countryList)
 
   return (
     <div className='App'>
@@ -93,7 +102,7 @@ function Home() {
         <select className='browser-default custom-select' name='department'>
           {country.length !== 0 ? (
             <>
-              <option value=''>Choose a city</option>
+              <option value=''>Choose a office</option>
               {country.departments.map((department, index) => (
                 <option key={index} value={department.departmentName}>
                   {department.departmentName}
@@ -127,7 +136,9 @@ function Home() {
         <table className='dataTable'>
           <thead>
             <tr>
+              <th>Office</th>
               <th>Name</th>
+              <th>Department</th>
             </tr>
           </thead>
           <tbody>{table()}</tbody>
