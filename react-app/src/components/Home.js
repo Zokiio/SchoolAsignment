@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { GetCountry, GetAll } from '../Data/GetFunctions';
+import { GetCountryList, GetCountry, GetAll } from '../Data/GetFunctions';
 
 function Home() {
   const [country, setCountry] = useState([]);
+  const [countryList, setCountryList] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
@@ -23,9 +24,8 @@ function Home() {
       GetCountry(e.target.value).then(e => {
         console.log('func e is', e);
         setCountry(e);
-        e.departments.map(item => {
-          console.log(item.employee);
-          setEmployees(item.employee);
+        e.departments.flatMap(item => {
+          return setEmployees(item.employee);
         });
       });
     }
@@ -33,6 +33,12 @@ function Home() {
 
   useEffect(() => {
     console.log('employees', employees);
+    if (countryList.length === 0) {
+      GetCountryList().then(json => json.countryName.map(item => item.countryName))
+        .then(second => {
+          return setCountryList(second)
+        })
+    }
   }, [employees]);
 
   const searchForValue = (query, e) => {
@@ -53,6 +59,8 @@ function Home() {
       );
     });
 
+  console.log(countryList)
+
   return (
     <div className='App'>
       <h1>test</h1>
@@ -71,18 +79,14 @@ function Home() {
               <option key='02' value='All'>
                 All
               </option>
-              <option key='1' value='sweden'>
-                Sweden
-              </option>
-              <option key='2' value='england'>
-                England
-              </option>
-              <option key='3' value='norway'>
-                Norway
-              </option>
-              <option key='4' value='poland'>
-                Poland
-              </option>
+              {
+                countryList !== 0 ? countryList.map(function (item, index) {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>)
+                }) : <option>loading...</option>
+              }
             </>
           }
         </select>
@@ -97,8 +101,8 @@ function Home() {
               ))}
             </>
           ) : (
-            <option value=''>Choose a Country first</option>
-          )}
+              <option value=''>Choose a Country first</option>
+            )}
         </select>
       </form>
       <br></br>
