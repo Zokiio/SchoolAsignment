@@ -5,41 +5,52 @@ function Home() {
   const [country, setCountry] = useState([]);
   const [countryList, setCountryList] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [selectedEmplyees, setSelectedEmployees] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
   const getDepartments = e => {
     if (e.target.value === 'All') {
-      GetAll().then(e =>
-        setEmployees(
-          e.coutries.flatMap(department =>
-            department.departments.flatMap(employee =>
-              employee.employee.map(i => {
-                return i;
+      GetAll().then(e => {
+        let arr = e.coutries
+          .flatMap(department => department.departments
+            .flatMap(item => {
+              let office = item.departmentName
+              let emp = item.employee.map(emp => {
+                return { ...emp, office, fullName: `${emp.firstName} ${emp.lastName}` }
               })
-            )
-          )
-        )
-      );
+              return emp;
+            }));
+
+        setSelectedEmployees(arr)
+        setEmployees(arr)
+        return
+      })
     } else {
       GetCountry(e.target.value).then(e => {
-        console.log('func e is', e);
         setCountry(e);
         let flat = e.departments.flatMap(item => {
           let office = item.departmentName
           let emp = item.employee.map(emp => {
-            return { ...emp, office }
+            return { ...emp, office, fullName: `${emp.firstName} ${emp.lastName}` }
           });
           return emp
         });
-        console.log(flat);
-
         setEmployees(flat)
+        setSelectedEmployees(flat)
       });
     }
   };
 
+  const officeChange = (e) => {
+    if (e.target.value === '') {
+      setSelectedEmployees(employees)
+    } else {
+      let filtered = employees.filter(item => item.office === e.target.value)
+      setSelectedEmployees(filtered)
+    }
+  }
+
   useEffect(() => {
-    console.log(employees)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (countryList.length === 0) {
       GetCountryList().then(json => json.countryName.map(item => item.countryName))
@@ -51,24 +62,25 @@ function Home() {
 
   const searchForValue = (query, e) => {
     e.preventDefault();
-    console.log(query);
-    const newArray = employees.filter(employee =>
-      employee.firstName.toLowerCase().includes(query)
-    );
-    return setEmployees(newArray);
+
+    if (query != '') {
+      const newArray = employees.filter(employee =>
+        employee.fullName.toLowerCase().includes(query)
+      );
+      return setSelectedEmployees(newArray);
+    } else {
+      setSelectedEmployees(employees)
+    }
+
   };
 
-  const table = () =>
-    employees.map((employee, index) => {
-      //console.log(employees)
-      return (
-        <tr key={index}>
-          <td>{employee.office}</td>
-          <td>{employee.firstName + ' ' + employee.lastName}</td>
-          <td>{employee.department}</td>
-        </tr>
-      );
-    });
+  const table = selectedEmplyees.map((employee, index) => {
+    return (<tr key={index}>
+      <td>{employee.office}</td>
+      <td>{employee.fullName}</td>
+      <td>{employee.department}</td>
+    </tr>)
+  });
 
   return (
     <div className='App'>
@@ -99,7 +111,7 @@ function Home() {
             </>
           }
         </select>
-        <select className='browser-default custom-select' name='department'>
+        <select className='browser-default custom-select' name='department' onChange={officeChange}>
           {country.length !== 0 ? (
             <>
               <option value=''>Choose a office</option>
@@ -141,7 +153,7 @@ function Home() {
               <th>Department</th>
             </tr>
           </thead>
-          <tbody>{table()}</tbody>
+          <tbody>{table}</tbody>
         </table>
       )}
     </div>
